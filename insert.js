@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
 let sql = `
-insert into test ("name") values ("suda");
+insert into chiba ("市町村名","人口","面積") values ("千葉市",977306,271.76);
 `
 
 db.serialize( () => {

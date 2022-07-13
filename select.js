@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
 let sql = `
-select id, name from test;
+select id,市町村名,人口,面積 from chiba;
 `
 
 db.serialize( () => {
@@ -12,7 +12,7 @@ db.serialize( () => {
 			return;
 		}
 		for( let data of row ) {
-			console.log( data.id + ' : ' + data.name );
+			console.log( data.id + ' : ' + data.市町村名 + ' : ' + data.人口 + ' : ' + data.面積);
 		}
 	});
 });
