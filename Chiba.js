@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 app.use("/public", express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  const message = "Hello world";
+  const message = "こんにちは😃";
   res.render('show', {mes:message});
 });
 
@@ -23,6 +23,19 @@ app.get("/db", (req, res) => {
     })
 })
 app.get("/top", (req, res) => {
+    let desc = "";
+    if( req.query.desc ) desc = " desc";
+    let sql = "select id, 都道府県, 人口 from example order by 人口" + desc + " limit " + req.query.pop + ";";
+    db.serialize( () => {
+        db.all(sql, (error, data) => {
+            if( error ) {
+                res.render('show', {mes:"エラーです"});
+            }
+            res.render('select', {data:data});
+        })
+    })
+})
+app.get("/top2", (req, res) => {
     let desc = "";
     if( req.query.desc ) desc = " desc";
     let sql = "select id, 都道府県, 人口 from example order by 人口" + desc + " limit " + req.query.pop + ";";
