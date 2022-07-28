@@ -22,6 +22,7 @@ app.get("/db", (req, res) => {
         })
     })
 })
+
 app.get("/top", (req, res) => {
     let desc = "";
     if( req.query.desc ) desc = " desc";
@@ -46,6 +47,17 @@ app.get("/top2", (req, res) => {
                 res.render('show', {mes:"エラーです"});
             }
             res.render('select2', {data:data});
+        })
+    })
+})
+
+app.get("/db2", (req, res) => {
+    db.serialize( () => {
+        db.all("select id, 一次産業人口 , 二次産業人口 , 三次産業人口 from chiba2;", (error, row) => {
+            if( error ) {
+                res.render('show', {mes:"エラーです"});
+            }
+            res.render('select4', {data:row});
         })
     })
 })

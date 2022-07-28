@@ -2,7 +2,10 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
 let sql = `
-select id,市町村名,人口,面積 from chiba;
+select chiba.id,chiba.市町村名,chiba2.一次産業人口,chiba2.二次産業人口,chiba2.三次産業人口 
+from chiba
+inner join chiba2
+on chiba.id=chiba2.id;
 `
 
 db.serialize( () => {
@@ -12,7 +15,7 @@ db.serialize( () => {
 			return;
 		}
 		for( let data of row ) {
-			console.log( data.id + ' : ' + data.市町村名 + ' : ' + data.人口 + ' : ' + data.面積);
+			console.log( data.id  + ' : ' + data.市町村名 + ' : ' + data.一次産業人口 + ' : ' + data.二次産業人口 + ' : ' + data.三次産業人口);
 		}
 	});
 });

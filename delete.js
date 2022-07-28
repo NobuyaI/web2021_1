@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
 let sql = `
-delete from chiba where id=3;
+delete from chiba where id=54;
 `
 
 db.serialize( () => {
