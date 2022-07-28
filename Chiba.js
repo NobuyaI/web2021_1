@@ -25,29 +25,31 @@ app.get("/db", (req, res) => {
 app.get("/top", (req, res) => {
     let desc = "";
     if( req.query.desc ) desc = " desc";
-    let sql = "select id, 都道府県, 人口 from example order by 人口" + desc + " limit " + req.query.pop + ";";
+    let sql = "select id, 市町村名, 人口 from chiba order by 人口" + desc + " limit " + req.query.pop + ";";
     db.serialize( () => {
         db.all(sql, (error, data) => {
             if( error ) {
                 res.render('show', {mes:"エラーです"});
             }
-            res.render('select', {data:data});
+            res.render('select2', {data:data});
         })
     })
 })
+
 app.get("/top2", (req, res) => {
     let desc = "";
     if( req.query.desc ) desc = " desc";
-    let sql = "select id, 都道府県, 人口 from example order by 人口" + desc + " limit " + req.query.pop + ";";
+    let sql = "select id, 市町村名, 面積 from chiba order by 面積" + desc + " limit " + req.query.pop + ";";
     db.serialize( () => {
         db.all(sql, (error, data) => {
             if( error ) {
                 res.render('show', {mes:"エラーです"});
             }
-            res.render('select', {data:data});
+            res.render('select2', {data:data});
         })
     })
 })
+
 app.use(function(req, res, next) {
   res.status(404).send('ページが見つかりません');
 });
